@@ -1,27 +1,17 @@
-from scapy.all import ARP, Ether, srp
-import socket
 from flask import *
+from flask_socketio import *
+import socket
 import copy
+import requests
+import json
 
 app=Flask('__main__')
+socketio=SocketIO(app)
 allclients=[]
 userinfo={}
 global logoutpassword
 
-def getallip():
-    myip=str(socket.gethostbyname(socket.gethostname()))
-    myip[:myip.rindex('.')]
-    target_ip = myip[:myip.rindex('.')]+'.1/24'
-    arp = ARP(pdst=target_ip)
-    ether = Ether(dst="ff:ff:ff:ff:ff:ff")
-    packet = ether/arp
-    result = srp(packet, timeout=3)[0]
-    clients = []
-    for sent, received in result:
-        clients.append({'ip': received.psrc, 'mac': received.hwsrc})
-    print("Available devices in the network:")
-    print("IP" + " "*18+"MAC")
-    return clients
+
 
 #api routes
 @app.route('/api/login', methods=['POST'])
@@ -41,8 +31,9 @@ def api_getuserinfo():
 
 @app.route('/api/getuserlist', methods=['GET'])
 def api_getuserlist():
-    allclients=getallip()
-    return jsonify(allclients)
+    f=open('static/json/friendlist.json','r')
+    js=json.load(f)
+    return jsonify(js)
 
 @app.route('/api/relogin', methods=['POST'])
 def api_relogin():
@@ -55,6 +46,21 @@ def api_relogin():
     response.set_cookie('name', userinfo['name'])
     response.set_cookie('nicknamename', userinfo['nickname'])
     return response
+
+@socketio.on('Add Friend')
+def api_addfriend(jsonobj, methods=['GET', 'POST']):
+    print('received my event: ' + str(jsonobj))
+    js={}
+    try:
+        r=requests.get('http://'+jsonobj['data']+'/api/getuserinfo')
+        js=json.loads(r.text)
+        js['found']=True
+        js['ip']=jsonobj['data']
+    except Exception as e:
+        js['found']=False
+        print(e)
+    socketio.emit('Add Friend Response', js)
+
 
 #html routes
 @app.route('/')
@@ -72,4 +78,4 @@ def flask_session():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=80)
+    socketio.run(app, debug=True, host='0.0.0.0', port=80)

@@ -1,0 +1,22 @@
+.addfrienddiv{
+    position: absolute;
+    top: 82.6px;
+    left: 0px;
+    background-color: rgba(243, 183, 72,0.2);
+    max-width: 72.7vw;
+}
+.addfrienddiv form{
+    padding: 20px;
+    margin: 20px;
+}
+.addfrienddiv button{
+    margin-top: 5px;
+    background-color: rgb(75, 52, 10);
+    color: rgb(235, 188, 181);
+    border-color: rgb(75, 52, 10);
+    border-radius: 5px;
+    transition-duration: 0.2s;
+}
+.addfrienddiv button:hover{
+    transform: scale(1.1);
+}

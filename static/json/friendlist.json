@@ -1,0 +1,27 @@
+[
+    {
+        "name": "test1",
+        "nickname": "testbug1",
+        "ip": "192.168.43.1"
+    },
+    {
+        "name": "test2",
+        "nickname": "testbug2",
+        "ip": "192.168.43.2"
+    },
+    {
+        "name": "test3",
+        "nickname": "testbug3",
+        "ip": "192.168.43.3"
+    },
+    {
+        "name": "test4",
+        "nickname": "testbug4",
+        "ip": "192.168.43.4"
+    },
+    {
+        "name": "test5",
+        "nickname": "testbug5",
+        "ip": "192.168.43.5"
+    }
+]
