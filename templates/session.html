@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src = "/static/js/jquery.js"></script>
+    <script src = "/static/js/getclientlist.js"></script>
     <title>Batiyao</title>
 </head>
 <style>
@@ -45,6 +47,8 @@
         margin: 0;
         border: none;
         background-color: rgb(240, 194, 109);
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     .connectionpanehead{
         position: absolute;
@@ -64,6 +68,34 @@
         color: rgb(102, 15, 3);
         font-family: "saman";
     }
+    .connectionpaneflexbox{
+        position: absolute;
+        top: 36.8px;
+        padding: 0;
+        margin: 0;
+        border: none;
+        width: 100%;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .connectionpaneflexitem{
+        margin: 0;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        padding: 0;
+        padding-left: 10px;
+        border: none;
+        width: 100%;
+        background-color: rgb(235, 183, 88);
+    }
+    .connectionpaneflexitem h4{
+        margin: 0;
+        border: none;
+        padding: 10px 5px;
+    }
 </style>
 <body>
     <div class="head">
@@ -75,6 +107,14 @@
         <div class="connectionpanehead">
             <h4>On Network</h4>
         </div>
+        <div class="connectionpaneflexbox" id="connectionlist">
+            <div class="connectionpaneflexitem">
+                <h4>On Network</h4>
+            </div>
+        </div>
     </div>
 </body>
+<script>
+    getclientlist();
+</script>
 </html>
