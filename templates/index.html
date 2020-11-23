@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet'>
+    <title>Batiyao</title>
+</head>
+<style>
+    @font-face {
+        font-family: saman;
+        src: url(static/fonts/saman.ttf);
+    }
+    @font-face {
+        font-family: anirm;
+        src: url(static/fonts/anirm.ttf);
+    }
+    @font-face {
+        font-family: sth;
+        src: url(static/fonts/sth.ttf);
+    }
+    body{
+        min-width: 100vw;
+        min-height: 100vh;
+        border: none;
+        margin: 0;
+        background-color: rgb(238, 204, 142);
+    }
+    .head{
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        background-color: rgb(243, 183, 72);
+        min-height: 81.6px;
+    }
+    .head h1{
+        color: rgb(138, 22, 6);
+        padding: 0;
+        margin: 10px;
+        border: none;
+        font-size: 50px;
+        padding-left: 40px;
+        font-family: "saman";
+        text-decoration: underline;
+    }
+    .logindiv{
+        margin: 20px;
+        position: absolute;
+        top: 81.6px;
+        right: 0px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: rgba(179, 106, 39, 0.5);
+    }
+    .appbody{
+        position: absolute;
+        top: 81.6px;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: rgba(179, 106, 39, 0.5);
+    }
+    .appbodynamaste{
+        font-size: 35px;
+        color: rgb(102, 15, 3);
+        font-family: "saman";
+        margin: 0;
+    }
+    .appbodyinfo{        
+        font-size: 20px;
+        font-family: "calibri";
+        margin: 0;
+    }
+</style>
+<body>
+    <div class="head">
+        <h1>
+            BATIYAO
+        </h1>
+    </div>
+    <div class="logindiv">
+        <p class="appbodynamaste">
+            Login Form
+        </p>
+        <form action="api/login" method="POST">
+            <input type="text" size=50 name="name" placeholder="Enter Your Name"><br>
+            <input type="text" size=50 name="nickname" placeholder="Enter Your Nickname"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <div class="appbody">
+        <p class="appbodynamaste">
+            Namaste,
+        </p>
+        <p class="appbodyinfo">
+            How cool will it be na to have Social Media Kind of Website that can be run locally on local network<br>
+            Yes, this is that cool thing.<br>
+            <br>
+            Welcome to Batiyao which literally means "to Talk" in Hindi Language
+        </p>
+    </div>
+</body>
+</html>
