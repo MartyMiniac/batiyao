@@ -25,4 +25,5 @@ socket.on('Different Login', (data) => {
 
 socket.on('Message Received', (data) => {
     console.log(data);
+    updaterecievebox(data.msg,data.nickname);
 });

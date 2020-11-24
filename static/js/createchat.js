@@ -11,6 +11,7 @@ $(document).on('click','.connectionpaneflexitem',function(event){
             document.getElementById("chatfriendname").innerHTML=val.nickname;
             document.getElementById("friendchatid").style.visibility="visible";
             bodydisplay.chatfriendbool=true;
+            document.getElementById("chatboxid").innerHTML="";
             break;
         }
     };
@@ -36,6 +37,38 @@ function getip(nickname){
         return val.ip;
     }
 }
+function updatesendbox(msg){
+    let s="";
+    let m="";
+    for(let i=0; i<msg.length; i++){
+        if(msg.charAt(i)=='\n'){
+            m+="<br>";
+            continue;
+        }
+        m+=msg.charAt(i);
+    }
+    m="You said :<br>"+m;
+    s+="<div class=\"chatbubble\">";
+    s+=m;
+    s+="</div>";
+    $(".chatbox").append(s);
+}
+function updaterecievebox(msg,nickname){
+    let s="";
+    let m="";
+    for(let i=0; i<msg.length; i++){
+        if(msg.charAt(i)=='\n'){
+            m+="<br>";
+            continue;
+        }
+        m+=msg.charAt(i);
+    }
+    m=nickname+" said :<br>"+m;
+    s+="<div class=\"chatbubble\">";
+    s+=m;
+    s+="</div>";
+    $(".chatbox").append(s);
+}
 $("#sendmsgbutton").click(function(){
     let t=document.getElementById("chatfriendname").innerHTML;
     t='http://'+getip(t)+'/api/sendmsg';
@@ -54,5 +87,7 @@ $("#sendmsgbutton").click(function(){
     var data = JSON.stringify({ "name": getCookie("name"), "nickname": getCookie("nickname"), "ip": location.hostname, "msg": document.getElementById("messageboxid").value }); 
 
     // Sending data with the request 
-    xhr.send(data); 
+    xhr.send(data);
+    updatesendbox(document.getElementById("messageboxid").value);
+    document.getElementById("messageboxid").value="";
 });

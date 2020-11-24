@@ -36,6 +36,19 @@
     border: none;
     background-color: rgb(240, 208, 150);
     overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.chatbubble{
+    margin: 5px;
+    position: relative;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    width: fit-content;
+    background-color: rgb(235, 183, 88);
 }
 .friendchattext{
     position: absolute;
