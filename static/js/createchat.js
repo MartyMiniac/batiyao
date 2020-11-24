@@ -11,7 +11,10 @@ $(document).on('click','.connectionpaneflexitem',function(event){
             document.getElementById("chatfriendname").innerHTML=val.nickname;
             document.getElementById("friendchatid").style.visibility="visible";
             bodydisplay.chatfriendbool=true;
-            document.getElementById("chatboxid").innerHTML="";
+            if (val.nickname in chatdb)
+                document.getElementById("chatboxid").innerHTML=chatdb[val.nickname];
+            else
+                document.getElementById("chatboxid").innerHTML="";
             break;
         }
     };
@@ -47,10 +50,14 @@ function updatesendbox(msg){
         }
         m+=msg.charAt(i);
     }
-    m="You said :<br>"+m;
+    m="<strong>You said :</strong><br>"+m;
     s+="<div class=\"chatbubble\">";
     s+=m;
     s+="</div>";
+    if (document.getElementById("chatfriendname").innerHTML in chatdb)
+        chatdb[document.getElementById("chatfriendname").innerHTML]+=s;
+    else        
+        chatdb[document.getElementById("chatfriendname").innerHTML]=s;
     $(".chatbox").append(s);
 }
 function updaterecievebox(msg,nickname){
@@ -63,11 +70,16 @@ function updaterecievebox(msg,nickname){
         }
         m+=msg.charAt(i);
     }
-    m=nickname+" said :<br>"+m;
+    m="<strong>"+nickname+" said :</strong><br>"+m;
     s+="<div class=\"chatbubble\">";
     s+=m;
     s+="</div>";
-    $(".chatbox").append(s);
+    if (nickname in chatdb)
+        chatdb[nickname]+=s;
+    else
+        chatdb[nickname]=s;
+    if(document.getElementById("chatfriendname").innerHTML==nickname)
+        $(".chatbox").append(s);
 }
 $("#sendmsgbutton").click(function(){
     let t=document.getElementById("chatfriendname").innerHTML;
