@@ -33,6 +33,7 @@
         right: 0px;
         background-color: rgb(243, 183, 72);
         min-height: 81.6px;
+        border-bottom: solid black;
     }
     .head h1{
         color: rgb(138, 22, 6);
@@ -97,6 +98,7 @@
             <input type="text" size=50 name="nickname" placeholder="Enter Your Nickname"><br>
             <input type="password" size=50 name="password" placeholder="Relogin password"><br>
             <input type="submit" value="Submit">
+            <input type="text" name="ip" id="ipid">
         </form>
     </div>
     <div class="appbody">
@@ -111,4 +113,8 @@
         </p>
     </div>
 </body>
+<script>
+    document.getElementById("ipid").value=window.location.hostname;
+    document.getElementById("ipid").style.visibility="hidden";
+</script>
 </html>

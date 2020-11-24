@@ -7,6 +7,7 @@
     <script src = "/static/js/getclientlist.js"></script>
     <script src = "/static/js/socketio.js"></script>
     <link rel="stylesheet" href = "/static/css/addfriend.css">
+    <link rel="stylesheet" href = "/static/css/chatfriend.css">
     <title>Batiyao</title>
 </head>
 <style>
@@ -30,6 +31,7 @@
         background-color: rgb(243, 183, 72);
         min-height: 81.6px;
         z-index: 1;
+        border-bottom: solid black;
     }
     .head h1{
         color: rgb(138, 22, 6);
@@ -44,7 +46,7 @@
     .connectionpane{
         position: fixed;
         right: 0px;
-        min-width: 300px;
+        min-width: 20vw;
         bottom: 0px;
         top: 81.6px;
         padding: 0;
@@ -65,7 +67,7 @@
     }
     .connectionpanehead div{
         position: relative;
-        margin-left: 55%;
+        margin-left: 40%;
         margin-bottom: 5px;
     }
     .connectionpanehead button{
@@ -74,6 +76,7 @@
         border-color: rgb(75, 52, 10);
         border-radius: 5px;
         transition-duration: 0.2s;
+        margin-bottom: 5px;
     }
     .connectionpanehead button:hover{
         transform: scale(1.1);
@@ -99,6 +102,21 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
+    }
+    @media only screen and (max-width: 1393px) {
+        .connectionpaneflexbox{
+            top: 90.8px;
+        }
+    }
+    @media only screen and (max-width: 886px) {
+        .connectionpaneflexbox{
+            top: 122.8px;
+        }
+    }
+    @media only screen and (max-width: 791px) {
+        .connectionpaneflexbox{
+            top: 159.8px;
+        }
     }
     .connectionpaneflexitem{
         margin: 0;
@@ -135,6 +153,7 @@
             <div>
                 <button id="addbutton">Add</button>
                 <button id="refreshbutton">Refresh</button>
+                <button id="logoutbutton">Logout</button>
             </div>
         </div>
         <div class="connectionpaneflexbox" id="connectionlist">
@@ -149,14 +168,37 @@
             <button id="addfriendbutton">Add Friend</button>
         </form>
     </div>
+    <div class="friendchat" id="friendchatid">
+        <div class="friendchathead">
+            <h4 id="chatfriendname">
+            </h4>
+        </div>
+        <div>
+            <div class="chatbox">
+            </div>
+            <div class="friendchattext">
+                <textarea placeholder="Enter The Message" id="messageboxid"></textarea>
+                <button id="sendmsgbutton">Send</button>
+            </div>
+        </div>
+    </div>
 </body>
 <script src = "/static/js/socketio_events_session.js"></script>
 <script src = "/static/js/addfriend.js"></script>
+<script src = "/static/js/createchat.js"></script>
 <script>
-        document.getElementById("addfrienddivid").style.visibility="hidden";
+    var bodydisplay={
+        "addfriendbool":false,
+        "chatfriendbool":false
+    };
+    document.getElementById("addfrienddivid").style.visibility="hidden";
+    document.getElementById("friendchatid").style.visibility="hidden";
     getclientlist();
     $("#refreshbutton").click(function(event){
         getclientlist();
+    });
+    $("#logoutbutton").click(function(){
+        
     });
 </script>
 </html>

@@ -1,11 +1,11 @@
-var addfriendbool=false;
 $("#addbutton").click(function(){
-    if(addfriendbool){
+    if(bodydisplay.addfriendbool){
         document.getElementById("addfrienddivid").style.visibility="hidden";
-        addfriendbool=false;
+        bodydisplay.addfriendbool=false;
+        document.getElementById("iptextid").value="";
     }
     else{
         document.getElementById("addfrienddivid").style.visibility="visible";
-        addfriendbool=true;
+        bodydisplay.addfriendbool=true;
     }
 })

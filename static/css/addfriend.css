@@ -1,13 +1,16 @@
 .addfrienddiv{
     position: absolute;
-    top: 82.6px;
-    left: 0px;
-    background-color: rgba(243, 183, 72,0.2);
+    top: 100px;
+    left: 100px;
+    background-color: rgba(243, 183, 72,1);
     max-width: 72.7vw;
+    z-index: 10;
+    border: solid black;
 }
 .addfrienddiv form{
     padding: 20px;
     margin: 20px;
+    z-index: 10;
 }
 .addfrienddiv button{
     margin-top: 5px;
@@ -16,6 +19,7 @@
     border-color: rgb(75, 52, 10);
     border-radius: 5px;
     transition-duration: 0.2s;
+    z-index: 10;
 }
 .addfrienddiv button:hover{
     transform: scale(1.1);

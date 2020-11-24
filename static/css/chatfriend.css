@@ -1,0 +1,72 @@
+.friendchat{
+    position: absolute;
+    top: 82.6px;
+    left: 0px;
+    min-width: 80vw;
+    bottom: 0px;
+    background-color: rgba(243, 183, 72,0.2);
+}
+.friendchathead{
+    position: absolute;
+    top:0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgb(230, 192, 122);
+    border-bottom: solid;
+    border-bottom-color: black;
+}
+.friendchathead h4{
+    margin: 7px;
+    margin-left: 40px;
+    padding: 0px;
+    border: none;
+    font-size: 30px;
+    color: rgb(102, 15, 3);
+    font-family: "saman";
+    text-decoration: underline;
+}
+.chatbox{
+    position: absolute;
+    top: 53.8px;
+    left: 0px;
+    right: 0px;
+    bottom: 70px;
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    background-color: rgb(240, 208, 150);
+    overflow-y: auto;
+}
+.friendchattext{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    min-height: 70px;
+    margin: 0px;
+    padding: 0px;
+    border: none;
+}
+.friendchattext textarea{
+    position: absolute;
+    top: 0px;
+    min-width: 80%;
+    left: 0px;
+    bottom: 0px;
+}
+.friendchattext button{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    min-width: 20%;
+    font-size: 20px;
+    
+    background-color: rgb(75, 52, 10);
+    color: rgb(235, 188, 181);
+    border-color: rgb(75, 52, 10);
+    transition-duration: 0.2s;
+}
+.friendchattext button:hover{
+    border: solid rgb(138, 22, 6) 5px;
+}

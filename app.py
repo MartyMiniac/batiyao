@@ -19,10 +19,11 @@ def api_login():
     global logoutpassword
     userinfo['name']=request.form['name']
     userinfo['nickname']=request.form['nickname']
+    userinfo['ip']=request.form['ip']
     logoutpassword=request.form['password']
     response = make_response(redirect('/session'))
     response.set_cookie('name', request.form['name'])
-    response.set_cookie('nicknamename', request.form['nickname'])
+    response.set_cookie('nickname', request.form['nickname'])
     return response
 
 @app.route('/api/getuserinfo', methods=['GET'])
@@ -44,8 +45,16 @@ def api_relogin():
         return 'loginfailure'
     response = make_response(redirect('/session'))
     response.set_cookie('name', userinfo['name'])
-    response.set_cookie('nicknamename', userinfo['nickname'])
+    response.set_cookie('nickname', userinfo['nickname'])
+    socketio.emit('Different Login', {'date':'Login From different Device'})
     return response
+
+@app.route('/api/sendmsg', methods=['POST'])
+def api_sendmsg():
+    js=request.get_json()
+    print(js)
+    socketio.emit('Message Received', js)
+    return 'test'
 
 @socketio.on('Add Friend')
 def api_addfriend(jsonobj, methods=['GET', 'POST']):
