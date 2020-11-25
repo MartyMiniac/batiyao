@@ -7,12 +7,16 @@ click==7.1.2
 distlib==0.3.1
 filelock==3.0.12
 Flask==1.1.2
+Flask-Cors==3.0.9
+Flask-SocketIO==4.3.1
 gunicorn==20.0.4
 idna==2.10
 iterapi==1.2.1
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
+python-engineio==3.13.2
+python-socketio==4.6.0
 requests==2.24.0
 scapy==2.4.4
 six==1.15.0

@@ -1,5 +1,6 @@
 from flask import *
 from flask_socketio import *
+from flask_cors import CORS, cross_origin
 import socket
 import copy
 import requests
@@ -50,6 +51,7 @@ def api_relogin():
     return response
 
 @app.route('/api/sendmsg', methods=['POST'])
+@cross_origin()
 def api_sendmsg():
     js=request.get_json()
     print(js)
