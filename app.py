@@ -5,11 +5,13 @@ import socket
 import copy
 import requests
 import json
+import secrets
 
 app=Flask('__main__')
 socketio=SocketIO(app)
 allclients=[]
 userinfo={}
+sesskey=''
 global logoutpassword
 
 
@@ -18,6 +20,10 @@ global logoutpassword
 @app.route('/api/login', methods=['POST'])
 def api_login():
     global logoutpassword
+    global userinfo
+    global sesskey
+    sesskey=secrets.token_urlsafe(12)
+    userinfo={}
     userinfo['name']=request.form['name']
     userinfo['nickname']=request.form['nickname']
     userinfo['ip']=request.form['ip']
@@ -25,6 +31,20 @@ def api_login():
     response = make_response(redirect('/session'))
     response.set_cookie('name', request.form['name'])
     response.set_cookie('nickname', request.form['nickname'])
+    response.set_cookie('session', sesskey, httponly=True)
+    return response
+
+@app.route('/api/logout', methods=['GET'])
+def api_logout():
+    if request.cookies.get('session') != sesskey:
+        return jsonify({'error' : 'session cookies didn\'t Match'})
+    global userinfo
+    del userinfo
+    logoutpassword=''
+    response=make_response(redirect('/'))
+    response.delete_cookie('name')
+    response.delete_cookie('nickname')
+    response.delete_cookie('session')
     return response
 
 @app.route('/api/getuserinfo', methods=['GET'])
@@ -33,6 +53,7 @@ def api_getuserinfo():
 
 @app.route('/api/getuserlist', methods=['GET'])
 def api_getuserlist():
+    print(request.cookies.get('session'))
     f=open('static/json/friendlist.json','r')
     js=json.load(f)
     return jsonify(js)
@@ -47,6 +68,7 @@ def api_relogin():
     response = make_response(redirect('/session'))
     response.set_cookie('name', userinfo['name'])
     response.set_cookie('nickname', userinfo['nickname'])
+    response.set_cookie('session', sesskey)
     socketio.emit('Different Login', {'date':'Login From different Device'})
     return response
 
@@ -60,6 +82,7 @@ def api_sendmsg():
 
 @socketio.on('Add Friend')
 def api_addfriend(jsonobj, methods=['GET', 'POST']):
+    print(request.cookies.get('session'))
     print('received my event: ' + str(jsonobj))
     js={}
     try:
@@ -67,6 +90,15 @@ def api_addfriend(jsonobj, methods=['GET', 'POST']):
         js=json.loads(r.text)
         js['found']=True
         js['ip']=jsonobj['data']
+        f=open('static/json/friendlist.json','r')
+        jst=json.load(f)
+        f.close()
+        t=js.copy()
+        del t['found']
+        jst.append(t)
+        f=open('static/json/friendlist.json','w')
+        f.write(json.dumps(jst, indent=4))
+        f.close()
     except Exception as e:
         js['found']=False
         print(e)
@@ -76,14 +108,28 @@ def api_addfriend(jsonobj, methods=['GET', 'POST']):
 #html routes
 @app.route('/')
 def flask_index():
-    print(not bool(userinfo))
-    if bool(userinfo):
-        return render_template('relogin.html')
+    try:
+        if bool(userinfo) and request.cookies.get('session')==sesskey:
+            return redirect('/session')
+    except:
+        pass
+    try:
+        print(not bool(userinfo))
+        if bool(userinfo):
+            return render_template('relogin.html')
+    except:
+        print(True)
+        return render_template('index.html')
     return render_template('index.html')
 
 @app.route('/session')
 def flask_session():
-    if not bool(userinfo):
+    try:
+        if not bool(userinfo):
+            return redirect('/')
+    except:
+        return redirect('/')
+    if request.cookies.get('session') != sesskey:
         return redirect('/')
     return render_template('session.html')
 
